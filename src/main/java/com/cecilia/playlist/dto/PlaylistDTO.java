@@ -1,4 +1,4 @@
-package com.cecilia.playlist.controller;
+package com.cecilia.playlist.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

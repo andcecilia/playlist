@@ -1,5 +1,6 @@
 package com.cecilia.playlist.controller;
 
+import com.cecilia.playlist.dto.PlaylistDTO;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
