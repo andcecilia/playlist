@@ -1,4 +1,4 @@
-package com.letscode.service.Impl;
+package com.letscode.service.impl;
 
 import com.letscode.domain.model.User;
 import com.letscode.domain.repository.UserRepository;
@@ -30,5 +30,12 @@ public class UserServiceImpl implements UserService {
                         .stream()
                         .map(user -> new UserDto(user.getUsername(), user.getName()))
                         .collect(Collectors.toList());
+    }
+
+    @Override
+    public User findUserByUsername(String username) {
+        return repository
+                .findById(username)
+                .orElseThrow();
     }
 }

@@ -5,22 +5,25 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
-public class User {
+public class Music {
 
     @Id
-    private String username;
+    private Long id;
 
-    @NotBlank(message="Nome obrigatorio")
-    private String name;
+    @NotBlank
+    private String title;
 
+    private String musicalGender;
+
+    @ManyToMany(fetch = FetchType.LAZY)  //FetchType.EAGER
+    private User userEntity;
 
 }
