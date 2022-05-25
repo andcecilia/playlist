@@ -18,8 +18,9 @@ public class UserController {
     private final UserService service;
 
     @PostMapping(path="/user")
-    public ResponseEntity<Void> saveUser(@RequestBody UserDto userDto){
+    public ResponseEntity<Void> saveUser(@RequestBody final UserDto userDto){
 
+        log.info("POST: " + userDto);
         service.saveUser(userDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
