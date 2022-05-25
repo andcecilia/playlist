@@ -3,6 +3,7 @@ package com.letscode.service.impl;
 import com.letscode.domain.model.User;
 import com.letscode.domain.repository.UserRepository;
 import com.letscode.dto.UserDto;
+import com.letscode.exception.UserNotFoundException;
 import com.letscode.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -33,9 +34,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findUserByUsername(String username) {
+    public User findUserByUsername(String username) throws UserNotFoundException {
         return repository
                 .findById(username)
-                .orElseThrow();
+                .orElseThrow(() -> new UserNotFoundException("User not found."));
     }
 }

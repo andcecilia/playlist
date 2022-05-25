@@ -1,6 +1,7 @@
 package com.letscode.controller;
 
 import com.letscode.dto.MusicDto;
+import com.letscode.exception.UserNotFoundException;
 import com.letscode.service.MusicService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -19,7 +20,8 @@ public class MusicController {
     private final MusicService service;
 
     @GetMapping(path="/users/{username}/music")
-    public ResponseEntity<List<MusicDto>> getMusicListFromUser(@PathVariable(name="username") final String username) {
+    public ResponseEntity<List<MusicDto>> getMusicListFromUser(@PathVariable(name="username") final String username)
+            throws UserNotFoundException {
 
         final List<MusicDto> todoDtoList =  service.getMusicListFromUser(username);
 

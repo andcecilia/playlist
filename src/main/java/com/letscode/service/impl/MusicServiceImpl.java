@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 @Service
 @RequiredArgsConstructor
 public class MusicServiceImpl implements MusicService {
@@ -22,6 +25,7 @@ public class MusicServiceImpl implements MusicService {
     @Override
     public List<MusicDto> getMusicListFromUser(String username) {
 
+        checkNotNull(username, "null username");
         final User userEntity = userService.findUserByUsername(username);
 
         return repository
