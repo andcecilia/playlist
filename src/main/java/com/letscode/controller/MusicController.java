@@ -1,6 +1,7 @@
 package com.letscode.controller;
 
 import com.letscode.dto.MusicDto;
+import com.letscode.exception.MusicNotFoundException;
 import com.letscode.exception.UserNotFoundException;
 import com.letscode.service.MusicService;
 import lombok.RequiredArgsConstructor;
@@ -28,9 +29,8 @@ public class MusicController {
         return ResponseEntity.ok(todoDtoList);
     }
 
-
     @PostMapping(path = "/music")
-    public ResponseEntity<Void> saveMusic(@RequestBody MusicDto musicDto) {
+    public ResponseEntity<Void> saveMusic(@RequestBody MusicDto musicDto) throws UserNotFoundException {
 
         log.info(musicDto);
         service.saveMusic(musicDto);
@@ -38,9 +38,8 @@ public class MusicController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    //PUT --> UPDATE
     @PutMapping(path = "/music")
-    public ResponseEntity<Void> updateMusic(@RequestBody MusicDto musicDto) {
+    public ResponseEntity<Void> updateMusic(@RequestBody MusicDto musicDto) throws UserNotFoundException {
 
         log.info("UPDATE: " + musicDto);
         service.updateMusic(musicDto);
@@ -48,10 +47,9 @@ public class MusicController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    //DELETE
     @DeleteMapping(path = "/music/{username}/{id}")
     public ResponseEntity<Void> deleteMusic(@PathVariable(name = "username") String username,
-                                               @PathVariable(name = "id") Long id) {
+                                               @PathVariable(name = "id") Long id) throws MusicNotFoundException {
 
         log.info("APAGANDO " + username + " " + id);
         service.deleteMusicFromUser(username,id);
