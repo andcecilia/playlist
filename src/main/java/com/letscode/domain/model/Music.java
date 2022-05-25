@@ -15,6 +15,7 @@ import javax.validation.constraints.NotBlank;
 @Entity
 public class Music {
 
+    @GeneratedValue
     @Id
     private Long id;
 

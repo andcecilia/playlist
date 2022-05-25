@@ -33,9 +33,18 @@ public class MusicServiceImpl implements MusicService {
 
     @Override
     public void saveMusic(MusicDto musicDto) {
-//        Music musicEntity = new Music(musicDto.getId(), musicDto.getTitle(), musicDto.getMusicalGender());
-//        repository.save(musicEntity);
 
+        final User userEntity = userService.findUserByUsername(musicDto.getUsername());
+        final Music musicEntity = Music.builder()
+                .title(musicDto.getTitle())
+                .musicalGender(musicDto.getMusicalGender())
+                .userEntity(userEntity)
+                .build();
+        repository.save(musicEntity);
+    }
+
+    @Override
+    public void updateMusic(MusicDto musicDto) {
         final User userEntity = userService.findUserByUsername(musicDto.getUsername());
         final Music musicEntity = Music.builder()
                 .id(musicDto.getId())
@@ -45,4 +54,18 @@ public class MusicServiceImpl implements MusicService {
                 .build();
         repository.save(musicEntity);
     }
+
+    @Override
+    public void deleteMusicFromUser(String username, Long id) {
+
+            userService.findUserByUsername(username);
+            final Music musicEntity = findMusicById(id);
+            repository.delete(musicEntity);
+        }
+
+    private Music findMusicById(Long id) {
+        return repository.findById(id).orElseThrow();
+    }
+
+
 }

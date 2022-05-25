@@ -35,23 +35,25 @@ public class MusicController {
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-//
-//    //PUT --> UPDATE
-//    @PutMapping(path = "/myplaylist")
-//    public ResponseEntity<Void> putPlaylist(@RequestBody UserDto playlistDTO) {
-//
-//        log.info("PUT: " + playlistDTO);
-//
-//        return new ResponseEntity<>(HttpStatus.CREATED);
-//    }
-//
-//    //DELETE
-//    @DeleteMapping(path = "/myplaylist/{singer}/{song}")
-//    public ResponseEntity<Void> deletePlaylist(@PathVariable(name = "singer") String singer,
-//                                               @PathVariable(name = "song") String song) {
-//
-//        log.info("APAGANDO " + singer + " " + song);
-//
-//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//    }
+
+    //PUT --> UPDATE
+    @PutMapping(path = "/music")
+    public ResponseEntity<Void> updateMusic(@RequestBody MusicDto musicDto) {
+
+        log.info("UPDATE: " + musicDto);
+        service.updateMusic(musicDto);
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    //DELETE
+    @DeleteMapping(path = "/music/{username}/{id}")
+    public ResponseEntity<Void> deleteMusic(@PathVariable(name = "username") String username,
+                                               @PathVariable(name = "id") Long id) {
+
+        log.info("APAGANDO " + username + " " + id);
+        service.deleteMusicFromUser(username,id);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
