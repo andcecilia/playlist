@@ -24,7 +24,7 @@ public class Music {
 
     private String musicalGender;
 
-    @ManyToOne(fetch = FetchType.LAZY)  //FetchType.EAGER
+    @ManyToOne(fetch = FetchType.LAZY)
     private User userEntity;
 
 }

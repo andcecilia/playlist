@@ -27,7 +27,7 @@ public class MusicServiceImpl implements MusicService {
     private final MusicRepository repository;
 
     @Override
-    public List<MusicDto> getMusicListFromUser(String username) throws UserNotFoundException{
+    public List<MusicDto> getMusicListFromUser(final String username) throws UserNotFoundException{
 
         checkNotNull(username, "null username");
         final User userEntity = userService.findUserByUsername(username);
@@ -40,7 +40,7 @@ public class MusicServiceImpl implements MusicService {
     }
 
     @Override
-    public void saveMusic(MusicDto musicDto) throws UserNotFoundException{
+    public void saveMusic(final MusicDto musicDto) throws UserNotFoundException{
 
         checkNotNull(musicDto);
 
@@ -54,7 +54,7 @@ public class MusicServiceImpl implements MusicService {
     }
 
     @Override
-    public void updateMusic(MusicDto musicDto) throws UserNotFoundException {
+    public void updateMusic(final MusicDto musicDto) throws UserNotFoundException {
 
         checkNotNull(musicDto);
 
@@ -69,7 +69,7 @@ public class MusicServiceImpl implements MusicService {
     }
 
     @Override
-    public void deleteMusicFromUser(String username, Long id) throws UserNotFoundException, MusicNotFoundException {
+    public void deleteMusicFromUser(final String username, final Long id) throws UserNotFoundException, MusicNotFoundException {
 
         try {
             checkNotNull(username);
@@ -80,18 +80,19 @@ public class MusicServiceImpl implements MusicService {
             repository.delete(musicEntity);
 
         } catch (UserNotFoundException e) {
-            log.error("Usuario nao encontrado: " + username);
+            log.error("User not found: " + username);
             log.error(e.getMessage());
             throw e;
         } catch (MusicNotFoundException e) {
-            log.error("MusicEntity nao encontrado: " + id);
+            log.error("Music not found: " + id);
             log.error(e.getMessage());
             throw e;
         }
     }
 
-    private Music findMusicById(Long id) {
-        return repository.findById(id).orElseThrow();
+    private Music findMusicById(final Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new MusicNotFoundException("Music not found"));
     }
 
 

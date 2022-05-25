@@ -30,16 +30,16 @@ public class MusicController {
     }
 
     @PostMapping(path = "/music")
-    public ResponseEntity<Void> saveMusic(@RequestBody MusicDto musicDto) throws UserNotFoundException {
+    public ResponseEntity<Void> saveMusic(@RequestBody final MusicDto musicDto) throws UserNotFoundException {
 
-        log.info(musicDto);
+        log.info("POST: " +musicDto);
         service.saveMusic(musicDto);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping(path = "/music")
-    public ResponseEntity<Void> updateMusic(@RequestBody MusicDto musicDto) throws UserNotFoundException {
+    public ResponseEntity<Void> updateMusic(@RequestBody final MusicDto musicDto) throws UserNotFoundException {
 
         log.info("UPDATE: " + musicDto);
         service.updateMusic(musicDto);
@@ -48,10 +48,10 @@ public class MusicController {
     }
 
     @DeleteMapping(path = "/music/{username}/{id}")
-    public ResponseEntity<Void> deleteMusic(@PathVariable(name = "username") String username,
-                                               @PathVariable(name = "id") Long id) throws MusicNotFoundException {
+    public ResponseEntity<Void> deleteMusic(@PathVariable(name = "username") final String username,
+                                               @PathVariable(name = "id") final Long id) throws MusicNotFoundException {
 
-        log.info("APAGANDO " + username + " " + id);
+        log.info("DELETE: " + username + " " + id);
         service.deleteMusicFromUser(username,id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
