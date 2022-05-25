@@ -23,7 +23,7 @@ public class Music {
 
     private String musicalGender;
 
-    @ManyToMany(fetch = FetchType.LAZY)  //FetchType.EAGER
+    @ManyToOne(fetch = FetchType.LAZY)  //FetchType.EAGER
     private User userEntity;
 
 }

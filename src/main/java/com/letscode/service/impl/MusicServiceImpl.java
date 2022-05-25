@@ -27,14 +27,22 @@ public class MusicServiceImpl implements MusicService {
         return repository
                 .findAllByUserEntityEquals(userEntity)
                 .stream()
-                .map(musicEntity -> new MusicDto(musicEntity.getId(), musicEntity.getTitle(), musicEntity.getMusicalGender()))
+                .map(musicEntity -> new MusicDto(musicEntity.getId(), musicEntity.getTitle(), musicEntity.getMusicalGender(), username))
                 .collect(Collectors.toList());
     }
 
     @Override
     public void saveMusic(MusicDto musicDto) {
-        Music musicEntity = new Music(musicDto.getId(), musicDto.getTitle(), musicDto.getMusicalGender());
-        repository.save(musicEntity);
+//        Music musicEntity = new Music(musicDto.getId(), musicDto.getTitle(), musicDto.getMusicalGender());
+//        repository.save(musicEntity);
 
+        final User userEntity = userService.findUserByUsername(musicDto.getUsername());
+        final Music musicEntity = Music.builder()
+                .id(musicDto.getId())
+                .title(musicDto.getTitle())
+                .musicalGender(musicDto.getMusicalGender())
+                .userEntity(userEntity)
+                .build();
+        repository.save(musicEntity);
     }
 }
