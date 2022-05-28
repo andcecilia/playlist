@@ -16,6 +16,7 @@ import javax.validation.constraints.NotBlank;
 public class User {
 
     @Id
+    @NotBlank(message="Username required")
     private String username;
 
     @NotBlank(message="Name required")

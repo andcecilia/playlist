@@ -35,7 +35,7 @@ public class MusicServiceImpl implements MusicService {
         return repository
                 .findAllByUserEntityEquals(userEntity)
                 .stream()
-                .map(musicEntity -> new MusicDto(musicEntity.getId(), musicEntity.getTitle(), musicEntity.getMusicalGender(), username))
+                .map(musicEntity -> new MusicDto(musicEntity.getId(), musicEntity.getTitle(), musicEntity.getArtist(), username))
                 .collect(Collectors.toList());
     }
 
@@ -47,7 +47,7 @@ public class MusicServiceImpl implements MusicService {
         final User userEntity = userService.findUserByUsername(musicDto.getUsername());
         final Music musicEntity = Music.builder()
                 .title(musicDto.getTitle())
-                .musicalGender(musicDto.getMusicalGender())
+                .artist(musicDto.getArtist())
                 .userEntity(userEntity)
                 .build();
         repository.save(musicEntity);
@@ -62,7 +62,7 @@ public class MusicServiceImpl implements MusicService {
         final Music musicEntity = Music.builder()
                 .id(musicDto.getId())
                 .title(musicDto.getTitle())
-                .musicalGender(musicDto.getMusicalGender())
+                .artist(musicDto.getArtist())
                 .userEntity(userEntity)
                 .build();
         repository.save(musicEntity);
