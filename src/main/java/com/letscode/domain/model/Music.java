@@ -19,10 +19,10 @@ public class Music {
     @Id
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "Title not blank")
     private String title;
 
-    private String musicalGender;
+    private String artist;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User userEntity;

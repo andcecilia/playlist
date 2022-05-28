@@ -16,12 +16,12 @@ import javax.validation.ConstraintViolationException;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = ConstraintViolationException.class)
-    public ResponseEntity<ErrorDto> handleValidationException() {
-        log.error("Error User");
+    public ResponseEntity<ErrorDto> handleValidationException(ConstraintViolationException e) {
+        log.error("Constraint Violation Exception" + e.getMessage());
         var errorDto =
                 ErrorDto.builder()
                         .codigoErro(HttpStatus.BAD_REQUEST.value())
-                        .mensagem("Invalid message")
+                        .mensagem("Invalid message" )
                         .build();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDto);
     }
@@ -31,10 +31,10 @@ public class GlobalExceptionHandler {
         log.error("User Not Found: " + e);
         var erroDto =
                 ErrorDto.builder()
-                        .mensagem("User Not Found" + e.getMessage())
+                        .mensagem(e.getMessage())
                         .codigoErro(HttpStatus.NOT_FOUND.value())
                         .build();
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(erroDto);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erroDto);
     }
 
     @ExceptionHandler(value = MusicNotFoundException.class)
@@ -42,20 +42,21 @@ public class GlobalExceptionHandler {
         log.error("Music Not Found: " + e);
         var erroDto =
                 ErrorDto.builder()
-                        .mensagem("Music Not Found" + e.getMessage())
+                        .mensagem(e.getMessage())
                         .codigoErro(HttpStatus.NOT_FOUND.value())
                         .build();
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(erroDto);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erroDto);
     }
 
     @ExceptionHandler(value = IllegalArgumentException.class)
     public ResponseEntity<ErrorDto> handleException(IllegalArgumentException e) {
-        log.error("Argumento ilegal: " + e);
+        log.error("IllegalArgumentException: " + e.getMessage());
         var erroDto =
                 ErrorDto.builder()
-                        .mensagem("Ilegal Argument:" +e.getMessage())
-                        .codigoErro(HttpStatus.NOT_FOUND.value())
+                        .mensagem("IllegalArgumentException: " +e.getMessage())
+                        .codigoErro(HttpStatus.CONFLICT.value())
                         .build();
         return ResponseEntity.status(HttpStatus.CONFLICT).body(erroDto);
     }
+
 }
