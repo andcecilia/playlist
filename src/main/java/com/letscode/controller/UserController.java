@@ -28,8 +28,8 @@ public class UserController {
     @GetMapping(path="/user")
     public ResponseEntity<List<UserDto>> getAll() {
 
-        List<UserDto> todoDtoList =  service.getAll();
-        return ResponseEntity.ok(todoDtoList);
+        List<UserDto> userDtoList =  service.getAll();
+        return ResponseEntity.ok(userDtoList);
     }
 
 
