@@ -8,6 +8,11 @@
 ### Built with:
 
 * Java 18
-* SpringBoot 
+* SpringBoot v 2.6.7
 * Maven 
-* H2 memory DB
+* H2 DataBase Engine
+
+#### Dependencies:
+
+* Lombok
+* Guava
