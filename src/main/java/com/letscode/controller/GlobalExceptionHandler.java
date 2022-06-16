@@ -20,8 +20,8 @@ public class GlobalExceptionHandler {
         log.error("Constraint Violation Exception" + e.getMessage());
         var errorDto =
                 ErrorDto.builder()
-                        .codigoErro(HttpStatus.BAD_REQUEST.value())
-                        .mensagem("Invalid message" )
+                        .errorCode(HttpStatus.BAD_REQUEST.value())
+                        .message("Invalid message" )
                         .build();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDto);
     }
@@ -29,34 +29,34 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = UserNotFoundException.class)
     public ResponseEntity<ErrorDto> handleUserNotFoundException(UserNotFoundException e) {
         log.error("User Not Found: " + e);
-        var erroDto =
+        var errorDto =
                 ErrorDto.builder()
-                        .mensagem(e.getMessage())
-                        .codigoErro(HttpStatus.NOT_FOUND.value())
+                        .message(e.getMessage())
+                        .errorCode(HttpStatus.NOT_FOUND.value())
                         .build();
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erroDto);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDto);
     }
 
     @ExceptionHandler(value = MusicNotFoundException.class)
     public ResponseEntity<ErrorDto> handleMusicNotFoundException(MusicNotFoundException e) {
         log.error("Music Not Found: " + e);
-        var erroDto =
+        var errorDto =
                 ErrorDto.builder()
-                        .mensagem(e.getMessage())
-                        .codigoErro(HttpStatus.NOT_FOUND.value())
+                        .message(e.getMessage())
+                        .errorCode(HttpStatus.NOT_FOUND.value())
                         .build();
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erroDto);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDto);
     }
 
     @ExceptionHandler(value = IllegalArgumentException.class)
     public ResponseEntity<ErrorDto> handleException(IllegalArgumentException e) {
         log.error("IllegalArgumentException: " + e.getMessage());
-        var erroDto =
+        var errorDto =
                 ErrorDto.builder()
-                        .mensagem("IllegalArgumentException: " +e.getMessage())
-                        .codigoErro(HttpStatus.CONFLICT.value())
+                        .message("IllegalArgumentException: " +e.getMessage())
+                        .errorCode(HttpStatus.CONFLICT.value())
                         .build();
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(erroDto);
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorDto);
     }
 
 }
