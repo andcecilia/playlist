@@ -19,6 +19,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(final UserDto userDto) {
+        var username = repository.findByUsername(userDto.getUsername());
+        if (username.isPresent())
+            throw new RuntimeException();
         User userEntity = new User(userDto.getUsername(), userDto.getName());
         repository.save(userEntity);
     }
